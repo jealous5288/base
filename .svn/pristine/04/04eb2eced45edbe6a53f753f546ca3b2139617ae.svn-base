@@ -1,7 +1,0 @@
-rootProject.name = 'base-plat'
-include 'plat-web'
-include 'plat-service'
-include 'plat-dao'
-include 'plat-domain'
-include 'plat-util'
-
