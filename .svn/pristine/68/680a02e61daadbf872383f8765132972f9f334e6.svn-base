@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script type="text/javascript" src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({
+            template: "platMain",
+            module: ["/medias/style/plat/workflow/flow.css",
+                "operamasks",
+                "/medias/style/plat/workflow/flowPropertyEdit.css"]
+        });
+    </script>
+    <style type="text/css">
+        html, body {
+            overflow-y: hidden;
+            background: #fff;
+        }
+    </style>
+</head>
+<body style="width: 100%;">
+<div id="center-tab" style="display: none">
+    <ul>
+        <li><a href="#tab1">机构</a></li>
+        <li><a href="#tab2">岗位</a></li>
+        <li><a href="#tab3">用户</a></li>
+    </ul>
+    <div id="tab1" class="flowTab" style="padding:0;overflow:auto">
+        <table cellpadding="0" cellspacing="0" border="0" class="infoTable_gzl" style="width: 98%;padding-left:20px;"
+               id="inOrganTable"></table>
+        <table cellpadding="0" cellspacing="0" border="0" class="infoTable_gzl" style="width: 98%;padding-left:20px;"
+               id="outOrganTable"></table>
+    </div>
+    <div id="tab2" class="flowTab" style="padding:0;overflow:auto">
+        <table cellpadding="0" cellspacing="0" border="0" class="infoTable_gzl" style="width: 98%;padding-left:20px;"
+               id="inPostTable"></table>
+        <table cellpadding="0" cellspacing="0" border="0" class="infoTable_gzl" style="width: 98%;padding-left:20px;"
+               id="outPostTable"></table>
+    </div>
+    <div id="tab3" class="flowTab" style="padding:0;overflow:auto">
+        <table cellpadding="0" cellspacing="0" border="0" class="infoTable_gzl" style="width: 98%;padding-left:20px;"
+               id="inUserTable"></table>
+        <table cellpadding="0" cellspacing="0" border="0" class="infoTable_gzl" style="width: 98%;padding-left:20px;"
+               id="outUserTable"></table>
+    </div>
+</div>
+<div id="ruleElement" style="display: none;height:200px;overflow-y:auto">
+    <table class="form"></table>
+</div>
+<script type="text/javascript">
+    RX.load({
+        template: "form",
+        module: ["attachmentView", "operamasks", "flowProp",
+            "/medias/src/plat/conf/workflow/designTools/nodeRoleEdit_Conf.js",
+            "/medias/src/plat/code/workflow/designTools/nodeRoleEdit.js",
+            "/medias/src/plat/code/auth/roleElementView.js"]
+    });
+</script>
+</body>
+</html>

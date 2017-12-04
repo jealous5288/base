@@ -1,0 +1,229 @@
+//通用业务逻辑
+var mainWin;                  //每个列表页的窗口，一般用于刷新列表
+var lcPageWin;                //工作流主页面窗口记录。
+var topWin = new Array();     //弹出层窗口堆栈
+var topView = new Array();    //动态列表堆栈
+var topModel = new Array();   //数据Model堆栈(用于窗口建model数据传递)
+var zpid;                      //用于图片空间
+var winpar;                    //工作流个性化参数
+var workFlowType = "frame";  //工作流弹出风格
+var hasHandleSubmit = true;
+
+function getWorkflowType(){
+    return workFlowType;
+}
+
+function setWorkflowType(value){
+    workFlowType = value;
+}
+
+
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null)return unescape(r[2]);
+    return null;
+}
+function openMsgMade(){
+    openStack(window, "用户消息定制", "small", "/message/msgMadeEdit");
+}
+function setPar(par) {
+    winpar = par;
+}
+function getPar() {
+    return winpar;
+}
+function setMainWin(win) {
+    mainWin = win;
+}
+function getMainWin() {
+    return mainWin;
+}
+function setLcPageWin(win) {
+    lcPageWin = win;
+}
+function getLcPageWin() {
+    return lcPageWin;
+}
+function pushTopWin(win) {
+    topWin.push(win);
+}
+function popTopWin() {
+    return topWin.pop();
+}
+function getTopWinLen(){
+    return topWin.length;
+}
+function getTopWin(bindex){
+    if(bindex == null){
+        bindex == 0;
+    }
+    if(topWin.length > 0){
+        if(topWin.length - bindex > 0){
+            return topWin[topWin.length - bindex - 1];
+        }else{
+            return null;
+        }
+    }else{
+        return null;
+    }
+}
+function closeTopWin(n) {
+    if(n > 0){
+        for (var i=0; i < n; i++){
+            layer.close(layer.getFrameIndex(getTopWin(0).name));
+        }
+    }
+}
+function pushTopView(view){
+    topView.push(view);
+}
+function popTopView() {
+    return topView.pop();
+}
+function getTopView(bindex){
+    if(bindex == null){
+        bindex == 0;
+    }
+    if(topView.length > 0){
+        if(topView.length - bindex > 0){
+            return topView[topView.length - bindex - 1];
+        }else{
+            return null;
+        }
+    }else{
+        return null;
+    }
+}
+function pushTopModel(model) {
+    topModel.push(model);
+}
+function popTopModel() {
+    return topModel.pop();
+}
+function getTopModel(bindex){
+    if(bindex == null){
+        bindex == 0;
+    }
+    if(topModel.length > 0){
+        if(topModel.length - bindex > 0){
+            return topModel[topModel.length - bindex - 1];
+        }else{
+            return null;
+        }
+    }else{
+        return null;
+    }
+}
+function setZpid(c) {
+    zpid = c;
+}
+function getZpid() {
+    return zpid;
+}
+
+window.property = null;      //工作流设计器属性缓存
+
+function setNodeValue(nodeInfo, ifrWin) {
+    window.property = nodeInfo;
+}
+
+function getNodeValue() {
+    return property;
+}
+
+function currentNode() {
+    return property;
+}
+
+layer.config({
+    extend: 'extend/layer.ext.js'
+});
+
+
+(function ($) {
+
+    _top.dialogs = window.dialogs = {};
+
+    _top.openLayer = window.openLayer = function(title,areaType,url,view){
+        var area;
+        if(areaType == "small"){
+            area = ['450px','350px'];
+        }else if(areaType == "medium"){
+            area = ['700px','500px'];
+        }else if(areaType == "big"){
+            area = ['900px','600px'];
+        }else if(areaType == "tree"){
+            area = ['400px', '600px'];
+        }else{
+            area = areaType;
+        }
+        _top.layer.open({
+            //zIndex:1,
+            type:2,
+            title:title,
+            area:area,
+            maxmin: true,
+            content:url,
+            success:function(layero,index){
+                var iframeWin = _top.window[layero.find('iframe')[0]['name']];
+                _top.pushTopWin(iframeWin);
+                if(view != null){
+                    _top.pushTopView(view);
+                }
+                if(window.parent.window.isWorkSpace){
+                    _top.setLcPageWin(window);
+                }
+                if(window.successCallback){
+                    window.successCallback();
+                }
+            },
+            end:function(){
+                _top.popTopWin();
+            },
+            cancel:function(){
+                var cwin = _top.getTopWin(0);
+                if(cwin != null){
+                    if(cwin.cancelCheck){
+                        return cwin.cancelCheck();
+                    }
+                }
+                return true;
+            }
+        })
+    }
+    _top.showDialog = window.showDialog = function (name, option, url, property, isReload, win) {
+        if (property != null || property != undefined){
+            window.property = property;
+        }else{
+            window.property = null;
+        }
+        if (name == "" || name == null || name == undefined) {
+            name = "d" + new Date().getTime();
+        }
+        var option = option || {};
+        option.width = option.width || 600;
+        option.height = option.height || 400;
+        option.title = option.title || '弹出窗口';
+        openStack((win || window),option.title,[option.width+"px",option.height+"px"],url);
+    }
+    _top.findDialog = window.findDialog = function (name) {
+        return window.dialogs[name];
+    }
+
+    ////服务器配置数据获取和top层声明
+    //$.ajax({
+    //    type: "get",
+    //    url: "/baseModel/getConfig?r="+Math.random(),
+    //    dataType: "json",
+    //    success: function (ar) {
+    //        if (ar.success) {
+    //            _top.isPostExist = ar.data.isPostExist;
+    //            _top.deleteCascadeOrgan = ar.data.deleteCascadeOrgan;
+    //            _top.isWorkflowSign = ar.data.isWorkflowSign;
+    //        } else {
+    //            layer.alert(ar.msg);
+    //        }
+    //    }
+    //})
+})(_top.jQuery || window.jQuery);

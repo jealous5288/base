@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>系统功能权限编辑页面</title>
+    <script type="text/javascript" src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({template: "platMain"});
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form_box">
+    <table class="form" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <th><b>*</b>权限名称</th>
+            <td>
+                <div class="element_box">
+                    <input type="text" class="i_text" data-model="ModelAuthRole" data-property="name"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th><b>*</b>权限编码:</th>
+            <td>
+                <div class="element_box">
+                    <input type="text" class="i_text" data-model="ModelAuthRole" data-property="code"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>描述:</th>
+            <td>
+                <div class="element_box">
+                    <textarea name="" rows="" cols="" class="i_textarea" data-model="ModelAuthRole"
+                              data-property="description"
+                              onblur="textareachk(this,'bzs')" onkeyup="textareachk(this,'bzs')"> </textarea>
+                    <div class="txtword" id="bzs"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- 下面按钮 -->
+<div class="w_button_box">
+    <input type="button" id="save" value="保存" class="c_button"/>
+</div>
+<script type="text/javascript">
+    RX.load({
+        template: "form",
+        module: [
+            "/medias/src/plat/conf/auth/module/sysAuth/authRoleEdit_config.js",
+            "/medias/src/plat/code/auth/module/sysAuth/authRoleEdit.js"]
+    });
+</script>
+</body>
+</html>

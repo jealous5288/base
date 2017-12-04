@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>要素关联信息</title>
+    <script type="text/javascript" src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({template: "platMain"});
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .titleMsg {
+            color: red;
+            font-size: 20px
+        }
+    </style>
+</head>
+
+<body>
+<div class="form_box">
+    <div style="display: none" id="selPosition">
+        <table class="form">
+            <tr>
+                <th>将此机构下的要素移至</th>
+                <td><input type="text" class="i_text" id="selOrganName"/>
+                    <input type="hidden" id="selOrganId"/></td>
+            </tr>
+        </table>
+    </div>
+    <!--机构信息-->
+    <div class="list_box">
+        <div>
+            <table class="form" id="organList"></table>
+        </div>
+    </div>
+    <!--岗位信息-->
+    <div class="list_box">
+        <div>
+            <table class="form" id="postList"></table>
+        </div>
+    </div>
+    <!--用户信息-->
+    <div class="list_box">
+        <div>
+            <table class="form" id="userList"></table>
+        </div>
+    </div>
+    <!--角色信息-->
+    <div class="list_box">
+        <div>
+            <table class="form" id="roleList"></table>
+        </div>
+    </div>
+</div>
+<div class="w_button_box">
+    <span class="titleMsg">该要素有以上关联信息，是否确认删除？</span>
+    <input type="button" id="ok" value="是" class="c_button"/>
+    <input type="button" id="cancle" value="否" class="c_button"/>
+</div>
+<script type="text/javascript">
+    RX.load({
+        template: "form",
+        module: [
+            "/medias/src/plat/conf/zzjg/organLinkList_config.js",
+            "/medias/src/plat/code/zzjg/organLinkList.js"]
+    });
+</script>
+</body>
+</html>

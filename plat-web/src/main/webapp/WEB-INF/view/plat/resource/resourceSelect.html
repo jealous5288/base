@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>资源列表页面</title>
+    <script src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({
+            template: "platMain"
+        });
+    </script>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="base_box">
+    <div data-model="SResource" class="query_box"></div>
+
+    <div class="list_box">
+        <div data-model="ModelResourceList" title="资源列表"></div>
+    </div>
+</div>
+<!-- 下面按钮 -->
+<div class="w_button_box">
+    <input type="button" id="save" value="确认" class="c_button"/>
+    <input type="button" id="close" value="取消" class="button"/>
+</div>
+<script type="text/javascript">
+    var resourceType = "${resourceType}";
+    RX.load({
+        template: "grid",
+        module: [
+            "/medias/src/plat/conf/resource/resourceSelect_config.js",
+            "/medias/src/plat/code/resource/resourceSelect.js"
+        ]
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>用户编辑</title>
+    <script type="text/javascript" src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({template: "platMain"});
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            background: #fff;
+        }
+
+        /*管理角色的背景色*/
+        .linkRole {
+            background-color: #C0C0C0 !important;
+        }
+
+        .linkRole td {
+            background-color: #C0C0C0 !important;
+        }
+
+        .linkRole .spanshow {
+            background-color: #C0C0C0 !important;
+        }
+    </style>
+</head>
+
+<body>
+<div class="form_box">
+    <table class="form" border="0" cellspacing="0" cellpadding="0">
+        <col width="150px"/>
+        <col/>
+        <tr style="display: none;">
+            <td>
+                <div class="element_box">
+                    <input type="hidden" id="userId" value="" data-model="ModelUser" data-property="id"/>
+                    <input type="hidden" id="sfyx_st" value="" data-model="ModelUser" data-property="sfyx_st"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th><b>*</b>用户名称</th>
+            <td>
+                <div class="element_box">
+                    <input type="text" class="i_text" value="" data-model="ModelUser" data-property="userName"/>
+                </div>
+            </td>
+            <th><b>*</b>性别</th>
+            <td>
+                <div class="element_box">
+                    <div data-model="ModelUser" data-property="sex"></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th><b>*</b>登录账号</th>
+            <td>
+                <div class="element_box">
+                    <input type="text" class="i_text" value="" data-model="ModelUser" data-property="loginName"/>
+                </div>
+            </td>
+            <th><b>*</b>所属机构</th>
+            <td>
+                <div class="element_box">
+                    <input type="text" class="i_text" value="" data-model="ModelUser" data-property="organName"/>
+                    <input type="hidden" class="i_text" value="" data-model="ModelUser" data-property="organId"/>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!--关联角色-->
+    <div id="roleList">
+    </div>
+</div>
+<!-- 下面按钮 -->
+<div class="w_button_box">
+    <input type="button" id="save" value="保存" class="c_button"/>
+</div>
+<script type="text/javascript">
+    RX.load({
+        template: "form",
+        module: ["/medias/src/plat/conf/zzjg/user/userEdit_config.js",
+            "/medias/src/plat/code/zzjg/user/userEdit.js"]
+    });
+</script>
+</body>
+</html>

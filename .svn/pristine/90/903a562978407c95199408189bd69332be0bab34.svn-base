@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <title>基础后台</title>
+    <script type="text/javascript" src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({
+            template: "platMain"
+        });
+    </script>
+    <style type="text/css">
+        html,
+        body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="left_side" id="leftContent">
+    <div class="toggle_collapse">
+        <h2>功能菜单</h2>
+    </div>
+    <div id="menu" class="nav_container">
+        <ul class="nav" id="nav">
+            <li><a href="javascript:void(0);" target="MainIframeR" src="${ctxPath}/baseModel/center"><i class="home"></i><em>管理首页</em></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="right_content">
+    <iframe name="MainIframeR" id="MainIframeR" frameborder="0" width="100%" height="100%" scrolling="auto"
+            src="${ctxPath}/baseModel/center"></iframe>
+</div>
+<div class="shrink" id="leftClose" title="隐藏主菜单"></div>
+<script type="text/javascript">
+    var $oConIndex;
+    RX.load({
+        module: [
+            [ "cookie"]
+        ],
+        callback: function () {
+            addFrameWin(window.frames["MainIframeR"],window);
+            $(function () {
+                //初始化内容区域高度
+                $("#MainIframeR").width($(window).width() - $(".left_side").outerWidth());
+                $(".nav_container").height($(window).height() - $(".toggle_collapse").outerHeight());
+                addFrameWin(window.frames["MainIframeR"],window);
+            })
+            //页面大小改变时，触发jquery的resize方法，自适应拖拽
+            $(window).resize(function () {
+                $("#MainIframeR").width($(window).width() - $(".left_side").outerWidth());
+                $(".nav_container").height($(window).height() - $(".toggle_collapse").outerHeight());
+            })
+            //初始化侧边栏
+            $oConIndex = $("#MainIframeR");
+            $("#leftClose").toggle(open, close);
+        }
+    });
+
+    function open() {
+        $("#leftContent").animate({
+            marginLeft: -220
+        }, 500);
+        $("#leftClose").animate({
+            marginLeft: -205
+        }, 500).html("").attr("title", "展开菜单栏");
+        $("#MainIframeR").animate({
+            width: $oConIndex.width() + 220
+        }, 500);
+        $("#leftClose").addClass("launched");
+    }
+    function close() {
+        $("#leftContent").animate({
+            marginLeft: 0
+        }, 500);
+        $("#leftClose").animate({
+            marginLeft: 0
+        }, 500).html("").attr("title", "隐藏菜单栏");
+        $("#MainIframeR").animate({
+            width: $oConIndex.width() - 220
+        }, 500);
+        $("#leftClose").removeClass("launched");
+    }
+</script>
+<script type="text/javascript">
+    var $p = $("#nav");
+    $p.empty();
+    var firstUrl;
+    var index = GetQueryString("index");
+    if (index) {
+        var subMenu = parent.menuData[index].CHILD;
+        var j;
+        $.each(subMenu, function (i, t) {
+            j = '<li><a href="' + RX.handlePath(t.MENU_URL) + '" target="MainIframeR" class="menu" name="menu"' + ' onclick="ChangeStyle(\'menu\',this,\'\');" ' + '><i class="iconfont">' + (t.MENU_ICON ? t.MENU_ICON : '') + '</i>' + t.MENU_NAME + ' </a> </li>';
+            $p.append(j);
+            if (i == 0) {
+                firstUrl = t.MENU_URL
+            }
+        });
+        $("#MainIframeR").attr("src", RX.handlePath(firstUrl));
+    }
+    $p.find(".menu:first").addClass("ClickStyle");
+
+</script>
+
+<script type="text/javascript">
+    //-------------设置点击以后的样式
+    function ChangeStyle(name, object, number, sum) {
+        var Links = document.getElementsByName(name);
+        for (var i = 0; i < Links.length; i++)
+            Links[i].className = '';
+        object.className = 'ClickStyle';
+
+        //点击主菜单，显示子菜单
+        if (number != '') {
+            if (number != '0') {
+                for (var i = 1; i <= sum; i++) {
+                    if (number == i) {
+                        with (document.getElementById('SubSideBarNav' + number).style) {
+                            display = (display == 'none' || display == '') ? 'block' : 'none';
+                        };
+                        var tempObj = document.getElementById('SubSideBarNav' + number);
+                        if (tempObj.style.display == 'none')
+                        //document.getElementById('SubSideSpan' + number).className = "sj";
+                            document.getElementById('SubSideSpan' + number).className = "sj_white";
+                        else
+                            document.getElementById('SubSideSpan' + number).className = "sj_down";
+                    } else {
+                        document.getElementById('SubSideBarNav' + i).style.display = 'none';
+                        document.getElementById('SubSideSpan' + i).className = "sj";
+                    }
+                }
+            }
+        } else {
+            for (var i = 1; i <= sum; i++) {
+                document.getElementById('SubSideBarNav' + i).style.display = 'none';
+                document.getElementById('SubSideSpan' + i).className = "sj";
+            }
+        }
+
+    }
+
+</script>
+</body>
+</html>

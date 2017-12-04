@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>配置列表页面</title>
+    <script src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({template: "platMain"});
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+    </style>
+</head>
+<body style="margin:0;">
+<div class="form_box" style="height:100%;padding:0;overflow:hidden">
+    <div class="form_box" id="typeSelectDiv" style="padding:0px 10px 0px 10px;">
+        <div class="page_title">
+            <h1>选择资源类型</h1>
+        </div>
+        <table class="form" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th width="30%"><b>*</b>资源类型</th>
+                <td>
+                    <div class="element_box">
+                        <% for(subdict in resourceDict){ %>
+                        <label><input type='radio' name='resourceType' id='type_${subdict.code}'
+                                      onclick='selectResource("${subdict.code}","${subdict.value}")'/>${subdict.value}</label>
+                        <% }%>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="resourceEditDiv" style="height:100%">
+        <iframe name="ResourceIframe" id="resourceEdit" frameborder="0" width="100%" height="100%" scrolling="auto"
+        ></iframe>
+    </div>
+</div>
+<script>
+    var defaultType = '${defaultType!}';
+
+    function selectResource(type, name) {
+        var url = "/resource/resourceEdit?type=xz&resourceType=" + type;
+        if (defaultType && defaultType.indexOf(type) > -1) {
+            url += "&parentId=" + GetQueryString("parentId")
+                + "&parentName=" + encode(GetQueryString("parentName"))
+                + "&parentType=" + GetQueryString("parentType");
+        }
+        $("#resourceEdit").attr("src", RX.handlePath(url));
+    }
+
+    if (defaultType) {
+        $("#type_" + defaultType.split(",")[0]).click();
+    } else {
+        $("input[name=resourceType]").eq(0).click();
+    }
+    $(function () {
+        $("#resourceEditDiv").height($(window).height() - $("#typeSelectDiv").outerHeight());
+        $(window).resize(function () {
+            $("#resourceEditDiv").height($(window).height() - $("#typeSelectDiv").outerHeight());
+        })
+    });
+    addFrameWin({name: "ResourceIframe"}, window);
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>部门领导</title>
+    <script type="text/javascript" src="/plat/medias/lib/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({
+            template: "platMain"
+        });
+    </script>
+
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form_box">
+    <div>
+        <table class="form" border="0" cellspacing="0" cellpadding="0">
+            <col width="30%">
+            <col width="70%">
+            <tr>
+                <th><b>*</b>姓名</th>
+                <td>
+                    <div class="element_box">
+                        <input type="hidden" class="i_text" data-model="ModelOrganLeader" data-property="id"/>
+                        <input type="hidden" class="i_text" data-model="ModelOrganLeader" data-property="organ_id"/>
+                        <input type="hidden" class="i_text" data-model="ModelOrganLeader" data-property="user_id"/>
+                        <input type="text" class="i_text" data-model="ModelOrganLeader" data-property="user_name"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th><b>*</b>审批顺序</th>
+                <td>
+                    <div class="element_box">
+                        <input type="text" class="i_text" data-model="ModelOrganLeader" data-property="sort_no"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="w_button_box">
+    <input type="button" id="save" value="保存" class="c_button"/>
+</div>
+
+<script type="text/javascript">
+    RX.load({
+        template: "form",
+        module: [
+            "/medias/js/conf/baseModel/zzjg/organ/bmldEdit_config.js",
+            "/medias/js/code/baseModel/zzjg/organ/bmldEdit.js"]
+    });
+</script>
+</body>
+</html>

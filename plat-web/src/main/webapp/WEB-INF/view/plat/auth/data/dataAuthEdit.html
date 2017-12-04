@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>模块编辑页面</title>
+    <script type="text/javascript" src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({
+            template: "platMain",
+            module: ["tabPanel",
+                "/medias/style/plat/roleEditCSS.css",
+                "zTree"]
+        });
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .content_wrap {
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form_box">
+    <div class="page_title">
+        <h1>权限内容</h1>
+    </div>
+    <table class="form" border="0" cellspacing="0" cellpadding="0">
+
+        <tr>
+            <th><b>*</b>主体类型:</th>
+            <td>
+                <div class="element_box">
+                    <select class="i_select" data-model="ModelDataAuth" data-property="ztlx"/>
+                    <option value=""></option>
+                    </select>
+                </div>
+            </td>
+            <th><b>*</b>选择主体:</th>
+            <td>
+                <div class="element_box">
+                    <input type="text" class="i_text" data-model="ModelDataAuth" data-property="userName"/>
+                    <input type="text" class="i_text" data-model="ModelDataAuth" data-property="roleName"/>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <th><b>*</b>关联对象:</th>
+            <td>
+                <div class="element_box ">
+                    <input type="text" class="i_text" data-model="ModelDataAuth" data-property="objectName"/>
+
+                </div>
+            </td>
+            <th><b>*</b>权限类型:</th>
+            <td>
+                <div class="element_box">
+                    <select class="i_select" data-model="ModelDataAuth" data-property="qxlx"/>
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>所属页面:</th>
+            <td colspan="3">
+                <div class="element_box"><input type="text" class="i_text" data-model="ModelDataAuth"
+                                                data-property="pageNames"/>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!--功能权限-->
+    <div class="list_box" style="overflow:hidden;">
+        <div id="objDataList"></div>
+    </div>
+</div>
+
+<!-- 下面按钮 -->
+<div class="w_button_box">
+    <input type="button" id="save" value="保存" class="c_button"/>
+    <!--<input type="button" value="取消" class="button" />-->
+</div>
+
+<script type="text/javascript">
+    RX.load({
+        template: "form",
+        module: ["/medias/lib/TabPanel.js",
+            "/medias/src/plat/conf/auth/data/dataAuthEdit_config.js",
+            "/medias/src/plat/code/auth/data/dataAuthEdit.js"
+        ]
+    });
+</script>
+</body>
+</html>

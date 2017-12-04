@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>选择页面列表</title>
+    <script type="text/javascript" src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({
+            template: "platMain",
+            module: ["/medias/plugin/select2/dist/css/select2.min.css"]
+        });
+    </script>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .form tr td.authTd {
+            width: 20%;
+            border: 0px !important;
+            height: 30px;
+            text-align: center;
+            border: 0px !important;
+        }
+    </style>
+</head>
+<body>
+<div class="form_box">
+    <div class="query_box">
+        <input id="pageId" type="hidden"/>
+        <input id="pageName" type="hidden"/>
+        <input id="moduleIdtrue" type="hidden"/>
+        <select id="selPage" data-model="ModelMain" data-property="pageId" class="i_select" style="width:300px">
+            <option value="">请选择页面</option>
+        </select>
+    </div>
+
+    <div id="pageAuthList">
+    </div>
+
+    <div id="selPageAuthList">
+    </div>
+</div>
+</div>
+<div class="w_button_box">
+    <input type="button" id="confirm" value="确认" class="c_button"/>
+</div>
+<script type="text/javascript">
+    RX.load({
+        template: "form",
+        module: ["select2", "zh-CN",
+            "/medias/src/plat/conf/auth/pageAuthSelect_config.js",
+            "/medias/src/plat/code/auth/pageAuthSelect.js"]
+    });
+</script>
+</body>
+</html>

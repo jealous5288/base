@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>模块编辑页面</title>
+    <script type="text/javascript" src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({template: "platMain"});
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+
+    </style>
+</head>
+<body>
+<div class="form_box">
+    <div class="page_title">
+        <h1>模块基本信息</h1>
+    </div>
+    <table class="form" border="0" cellspacing="0" cellpadding="0">
+
+        <tr>
+            <th><b>*</b>模块名称:</th>
+            <td>
+                <div class="element_box">
+                    <input type="text" class="i_text" data-model="ModelModule" data-property="moduleName"/>
+                </div>
+            </td>
+            <th><b>*</b>模块编码:</th>
+            <td>
+                <div class="element_box">
+                    <input type="text" class="i_text" data-model="ModelModule" data-property="moduleCode"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>关联页面:</th>
+            <td colspan="3">
+                <div class="element_box">
+                    <input type="text" class="i_text" data-model="ModelModule" data-property="pageNames"/>
+                    <input type="hidden" data-model="ModelModule" data-property="pageIds">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!--功能权限-->
+    <div class="list_box" id="authList">
+    </div>
+</div>
+<!-- 下面按钮 -->
+<div class="w_button_box">
+    <input type="button" id="save" value="保存" class="c_button"/>
+</div>
+<script type="text/javascript">
+    RX.load({
+        template: "form",
+        module: [
+            "/medias/src/plat/conf/auth/module/moduleEdit_config.js",
+            "/medias/src/plat/code/auth/module/moduleEdit.js"]
+    });
+</script>
+</body>
+</html>

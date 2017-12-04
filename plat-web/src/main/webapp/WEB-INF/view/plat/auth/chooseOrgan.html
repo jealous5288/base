@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>角色关联要素编辑页面</title>
+    <script type="text/javascript" src="${ctxPath}/medias/RX.load.js"></script>
+    <script type="text/javascript">
+        RX.loadCSS({
+            template: "platMain",
+            module: ["treeIcon",
+                "zTree",
+                "/medias/style/plat/roleEditCSS.css", "model"]
+        });
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .form tr td.authTd {
+            width: 20%;
+            border: 0px !important;
+            height: 30px;
+            text-align: center;
+            border: 0px !important;
+        }
+    </style>
+    <script type="text/javascript">
+        RX.load({
+            async: false,
+            template: "form",
+            module: ["zTree",
+                "/medias/src/plat/code/auth/roleZzjg.js",
+                "/medias/src/plat/code/auth/chooseOrgan.js"]
+        });
+    </script>
+</head>
+<body>
+<div class="form_box" style="padding: 0;">
+    <div id="role-element" style="width:100%;height:520px">
+        <!--角色关联要素模块-->
+        <div class="page_title">
+            <h1>角色关联要素模块</h1>
+        </div>
+        <div class="tabdiv" id="zzjg">
+            <div style="padding:5px 0px 5px 0px;">
+                <div style="float:left;text-align: center;width:355px;height: 458px;margin-left: 10px">
+                    <div class="popTreeDiv"
+                         style="overflow:auto;float: left;width:100%;height:100%;border: 1px #d5d5d5 solid">
+                        <ul class="ztree" id="tree2">
+                        </ul>
+                    </div>
+                </div>
+                <div id="" style="float:left;width:50px;height: 250px;margin-left: 5px;margin-top: 60px">
+                </div>
+                <div style="float:left;width:355px;height: 458px">
+                    <div class="form addForm" style="height:458px;border: 1px #d5d5d5 solid;">
+                        <ul class="ztree" id="tree21" style="width:100%;height:100%;overflow:auto;">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 下面按钮 -->
+<div class="w_button_box">
+    <input type="button" id="save" value="保存" class="c_button" style="display: none;"/>
+    <input type="button" id="close" value="关闭" class="button"/>
+</div>
+</body>
+</html>
